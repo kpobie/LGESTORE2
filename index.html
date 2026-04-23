@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LGE STORE | Boutique en ligne fiable et sécurisée</title>
+  <meta
+    name="description"
+    content="LGE STORE, votre boutique en ligne à Lomé : produits fiables, paiement sécurisé, commande rapide sur WhatsApp et accompagnement client sérieux."
+  />
+  <meta name="theme-color" content="#2563eb" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: all 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .cart-drawer {
+      transform: translateX(100%);
+      transition: transform 0.35s ease;
+    }
+
+    .cart-drawer.open {
+      transform: translateX(0);
+    }
+
+    .overlay {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .pulse-soft {
+      animation: pulseSoft 2s infinite;
+    }
+
+    @keyframes pulseSoft {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    .badge-bounce {
+      animation: bounceMini 0.4s ease;
+    }
+
+    @keyframes bounceMini {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.25); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+  <!-- OVERLAY -->
+  <div id="overlay" class="overlay fixed inset-0 bg-slate-950/50 z-40"></div>
+
+  <!-- NAVBAR -->
+  <nav class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-md shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+      <div class="flex items-center justify-between gap-4">
+        <a href="#accueil" class="flex items-center gap-3">
+          <div class="h-11 w-11 rounded-2xl bg-blue-600 text-white flex items-center justify-center font-extrabold shadow-md">
+            L
+          </div>
+          <div>
+            <h1 class="text-2xl font-extrabold tracking-tight text-slate-900">
+              LGE <span class="text-blue-600">STORE</span>
+            </h1>
+            <p class="text-xs text-slate-500 -mt-1">Qualité, fiabilité et simplicité au quotidien</p>
+          </div>
+        </a>
+
+        <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-700">
+          <a href="#accueil" class="hover:text-blue-600 transition">Accueil</a>
+          <a href="#avantages" class="hover:text-blue-600 transition">Nos engagements</a>
+          <a href="#produits" class="hover:text-blue-600 transition">Nos produits</a>
+          <a href="#faq" class="hover:text-blue-600 transition">FAQ</a>
+          <a href="#contact" class="hover:text-blue-600 transition">Contact</a>
+        </div>
+
+        <div class="hidden md:flex items-center gap-3">
+          <a
+            href="https://wa.me/22870129271"
+            target="_blank"
+            class="border border-slate-300 text-slate-700 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 transition"
+          >
+            WhatsApp
+          </a>
+
+          <a
+            href="#contact"
+            class="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-blue-700 transition shadow-sm"
+          >
+            Nous contacter
+          </a>
+
+          <button
+            id="openCartBtn"
+            class="relative border border-slate-200 bg-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 transition flex items-center gap-2"
+            aria-label="Ouvrir le panier"
+          >
+            <span>🛒</span>
+            <span>Panier</span>
+            <span
+              id="cart-count"
+              class="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] rounded-full h-5 w-5 flex items-center justify-center font-bold"
+            >0</span>
+          </button>
+        </div>
+
+        <button
+          id="mobileMenuBtn"
+          class="lg:hidden border border-slate-300 rounded-xl px-3 py-2 text-slate-700"
+          aria-label="Ouvrir le menu"
+        >
+          ☰
+        </button>
+      </div>
+
+      <div id="mobileMenu" class="hidden lg:hidden pt-4 pb-1">
+        <div class="flex flex-col gap-3 text-sm font-medium text-slate-700">
+          <a href="#accueil" class="hover:text-blue-600 transition">Accueil</a>
+          <a href="#avantages" class="hover:text-blue-600 transition">Nos engagements</a>
+          <a href="#produits" class="hover:text-blue-600 transition">Nos produits</a>
+          <a href="#faq" class="hover:text-blue-600 transition">FAQ</a>
+          <a href="#contact" class="hover:text-blue-600 transition">Contact</a>
+          <div class="flex gap-3 pt-2">
+            <a
+              href="https://wa.me/22870129271"
+              target="_blank"
+              class="border border-slate-300 text-slate-700 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 transition text-center"
+            >
+              WhatsApp
+            </a>
+            <button
+              id="openCartBtnMobile"
+              class="relative border border-slate-300 text-slate-700 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 transition"
+            >
+              Panier
+              <span
+                id="cart-count-mobile"
+                class="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] rounded-full h-5 w-5 flex items-center justify-center font-bold"
+              >0</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="accueil" class="relative overflow-hidden bg-gradient-to-r from-slate-950 via-blue-950 to-slate-900 text-white">
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute top-10 left-10 h-32 w-32 rounded-full bg-blue-500 blur-3xl"></div>
+      <div class="absolute bottom-10 right-10 h-40 w-40 rounded-full bg-cyan-400 blur-3xl"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center">
+      <div class="reveal">
+        <span class="inline-block bg-white/10 border border-white/20 text-white text-xs px-4 py-2 rounded-full mb-6">
+          Boutique en ligne de confiance à Lomé
+        </span>
+
+        <h2 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+          Tout ce qu’il vous faut,
+          <span class="text-blue-400">au bon prix</span>,
+          avec un service fiable.
+        </h2>
+
+        <p class="text-lg text-slate-300 mb-8 max-w-xl leading-relaxed">
+          Découvrez des produits utiles, modernes et soigneusement sélectionnés.
+          Commandez facilement, échangez avec nous sur WhatsApp et achetez en toute sérénité.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a
+            href="#produits"
+            class="bg-white text-slate-900 px-7 py-3 rounded-xl font-bold hover:bg-slate-200 transition text-center"
+          >
+            Découvrir nos produits
+          </a>
+          <a
+            href="https://wa.me/22870129271"
+            target="_blank"
+            class="border border-white/30 px-7 py-3 rounded-xl font-bold hover:bg-white/10 transition text-center"
+          >
+            Commander sur WhatsApp
+          </a>
+        </div>
+
+        <div class="mt-10 flex flex-wrap gap-6 text-sm text-slate-300">
+          <div>✔ Paiement sécurisé</div>
+          <div>✔ Livraison rapide</div>
+          <div>✔ Assistance client réactive</div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="glass border border-white/10 rounded-3xl p-6 md:p-8 shadow-2xl">
+          <div class="bg-white rounded-2xl p-6 text-slate-900 shadow-xl">
+            <p class="text-sm font-semibold text-blue-600 mb-3">Pourquoi choisir LGE STORE ?</p>
+            <h3 class="text-2xl font-extrabold mb-4">Une boutique pensée pour inspirer confiance</h3>
+
+            <div class="space-y-4">
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                <p class="font-semibold">Produits sélectionnés avec soin</p>
+                <p class="text-sm text-slate-600">Nous privilégions des articles pratiques, fiables et adaptés à votre quotidien.</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                <p class="font-semibold">Commande simple et rapide</p>
+                <p class="text-sm text-slate-600">Ajoutez vos produits au panier puis finalisez votre commande directement sur WhatsApp.</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                <p class="font-semibold">Service client de qualité</p>
+                <p class="text-sm text-slate-600">Nous restons disponibles pour vous informer, vous conseiller et vous accompagner.</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3 mt-6">
+              <div class="bg-blue-50 text-blue-700 rounded-xl px-3 py-3 text-center text-sm font-semibold">100% sécurisé</div>
+              <div class="bg-slate-100 text-slate-700 rounded-xl px-3 py-3 text-center text-sm font-semibold">WhatsApp direct</div>
+              <div class="bg-emerald-50 text-emerald-700 rounded-xl px-3 py-3 text-center text-sm font-semibold">Livraison locale</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <section class="bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 reveal">
+        <p class="text-2xl font-extrabold text-slate-900">24/7</p>
+        <p class="text-sm text-slate-600">Assistance client</p>
+      </div>
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 reveal">
+        <p class="text-2xl font-extrabold text-slate-900">100%</p>
+        <p class="text-sm text-slate-600">Transactions sécurisées</p>
+      </div>
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 reveal">
+        <p class="text-2xl font-extrabold text-slate-900">Rapide</p>
+        <p class="text-sm text-slate-600">Traitement des commandes</p>
+      </div>
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 reveal">
+        <p class="text-2xl font-extrabold text-slate-900">Fiable</p>
+        <p class="text-sm text-slate-600">Service de confiance</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVANTAGES -->
+  <section id="avantages" class="max-w-7xl mx-auto px-4 sm:px-6 py-20">
+    <div class="text-center mb-14 reveal">
+      <span class="text-blue-600 font-semibold uppercase text-sm tracking-wider">Nos engagements</span>
+      <h3 class="text-3xl md:text-4xl font-extrabold mt-3 text-slate-900">
+        Une expérience d’achat pensée pour votre satisfaction
+      </h3>
+      <p class="text-slate-600 mt-4 max-w-2xl mx-auto">
+        Chez LGE STORE, nous mettons l’accent sur la transparence, la qualité de service,
+        la réactivité et la simplicité pour vous offrir une boutique moderne et rassurante.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-lg transition reveal">
+        <div class="text-4xl mb-4">🚚</div>
+        <h4 class="text-xl font-bold mb-3">Livraison maîtrisée</h4>
+        <p class="text-slate-600 leading-relaxed">
+          Nous assurons un traitement rapide de vos commandes avec un suivi clair jusqu’à la réception.
+        </p>
+      </div>
+
+      <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-lg transition reveal">
+        <div class="text-4xl mb-4">🔒</div>
+        <h4 class="text-xl font-bold mb-3">Paiement en toute sécurité</h4>
+        <p class="text-slate-600 leading-relaxed">
+          Commandez sereinement grâce à des méthodes de paiement fiables et adaptées à vos besoins.
+        </p>
+      </div>
+
+      <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-lg transition reveal">
+        <div class="text-4xl mb-4">⭐</div>
+        <h4 class="text-xl font-bold mb-3">Service client attentif</h4>
+        <p class="text-slate-600 leading-relaxed">
+          Nous répondons avec sérieux, courtoisie et efficacité avant, pendant et après votre achat.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUITS -->
+  <section id="produits" class="bg-slate-100 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-10">
+        <div class="reveal">
+          <span class="text-blue-600 font-semibold uppercase text-sm tracking-wider">Notre sélection</span>
+          <h3 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-2">Produits à la une</h3>
+          <p class="text-slate-600 mt-3 max-w-2xl">
+            Explorez une gamme d’articles appréciés pour leur qualité, leur utilité et leur excellent rapport qualité-prix.
+          </p>
+        </div>
+
+        <div class="reveal flex flex-col sm:flex-row gap-3">
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Rechercher un produit..."
+            class="px-4 py-3 rounded-xl border border-slate-300 bg-white outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <div class="flex flex-wrap gap-2" id="filterButtons">
+            <button class="filter-btn bg-slate-900 text-white px-4 py-3 rounded-xl text-sm font-semibold" data-filter="Tous">Tous</button>
+            <button class="filter-btn bg-white border border-slate-300 px-4 py-3 rounded-xl text-sm font-semibold" data-filter="Téléphonie">Téléphonie</button>
+            <button class="filter-btn bg-white border border-slate-300 px-4 py-3 rounded-xl text-sm font-semibold" data-filter="Accessoires">Accessoires</button>
+            <button class="filter-btn bg-white border border-slate-300 px-4 py-3 rounded-xl text-sm font-semibold" data-filter="Informatique">Informatique</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="productsGrid" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-8"></div>
+    </div>
+  </section>
+
+  <!-- SECTION RASSURANCE -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-20">
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <div class="reveal">
+        <span class="text-blue-600 font-semibold uppercase text-sm tracking-wider">Votre confiance, notre priorité</span>
+        <h3 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-5">
+          Achetez en toute sérénité auprès d’une boutique engagée à vos côtés
+        </h3>
+        <p class="text-slate-600 leading-relaxed mb-6">
+          Nous savons qu’un achat en ligne repose d’abord sur la confiance.
+          C’est pourquoi nous nous engageons à fournir des informations claires,
+          un accompagnement sérieux et une expérience fluide sur mobile comme sur ordinateur.
+        </p>
+
+        <div class="space-y-4">
+          <div class="flex items-start gap-3">
+            <div class="text-green-600 text-xl">✔</div>
+            <p class="text-slate-700">Des informations utiles pour vous aider à faire le bon choix</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="text-green-600 text-xl">✔</div>
+            <p class="text-slate-700">Une commande simple via panier et WhatsApp</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="text-green-600 text-xl">✔</div>
+            <p class="text-slate-700">Une boutique responsive, moderne et optimisée pour tous les écrans</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm reveal">
+        <h4 class="text-2xl font-bold text-slate-900 mb-6">Modes de paiement acceptés</h4>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="border border-slate-200 rounded-2xl p-4 text-center font-semibold bg-slate-50">Visa</div>
+          <div class="border border-slate-200 rounded-2xl p-4 text-center font-semibold bg-slate-50">Mastercard</div>
+          <div class="border border-slate-200 rounded-2xl p-4 text-center font-semibold bg-slate-50">Flooz</div>
+          <div class="border border-slate-200 rounded-2xl p-4 text-center font-semibold bg-slate-50">TMoney</div>
+          <div class="border border-slate-200 rounded-2xl p-4 text-center font-semibold bg-slate-50">PayPal</div>
+          <div class="border border-slate-200 rounded-2xl p-4 text-center font-semibold bg-slate-50">Mobile Money</div>
+        </div>
+
+        <div class="mt-6 rounded-2xl bg-blue-50 border border-blue-100 p-4 text-sm text-blue-800">
+          Besoin d’aide avant de commander ? Écrivez-nous directement sur WhatsApp.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="bg-white py-20 border-y border-slate-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12 reveal">
+        <span class="text-blue-600 font-semibold uppercase text-sm tracking-wider">Questions fréquentes</span>
+        <h3 class="text-3xl md:text-4xl font-extrabold mt-3 text-slate-900">FAQ</h3>
+        <p class="text-slate-600 mt-4">
+          Retrouvez ici les réponses aux questions les plus fréquentes.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <details class="bg-slate-50 border border-slate-200 rounded-2xl p-5 reveal">
+          <summary class="font-bold cursor-pointer">Comment commander sur LGE STORE ?</summary>
+          <p class="text-slate-600 mt-3">
+            Ajoutez vos produits au panier, ouvrez le panier puis cliquez sur “Commander via WhatsApp”.
+            Le message de commande sera généré automatiquement.
+          </p>
+        </details>
+
+        <details class="bg-slate-50 border border-slate-200 rounded-2xl p-5 reveal">
+          <summary class="font-bold cursor-pointer">Puis-je commander directement sans panier ?</summary>
+          <p class="text-slate-600 mt-3">
+            Oui. Chaque fiche produit possède un bouton “Commander” qui ouvre directement WhatsApp.
+          </p>
+        </details>
+
+        <details class="bg-slate-50 border border-slate-200 rounded-2xl p-5 reveal">
+          <summary class="font-bold cursor-pointer">Où êtes-vous situés ?</summary>
+          <p class="text-slate-600 mt-3">
+            Nous sommes basés à Lomé, au Togo.
+          </p>
+        </details>
+
+        <details class="bg-slate-50 border border-slate-200 rounded-2xl p-5 reveal">
+          <summary class="font-bold cursor-pointer">Comment vous contacter ?</summary>
+          <p class="text-slate-600 mt-3">
+            Vous pouvez nous écrire sur WhatsApp au +228 70 12 92 71 ou par email à essodekekpobie1mail.com.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 py-20">
+    <div class="grid lg:grid-cols-2 gap-10">
+      <div class="reveal">
+        <span class="text-blue-600 font-semibold uppercase text-sm tracking-wider">Contact</span>
+        <h3 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 mb-5">
+          Parlons de votre commande
+        </h3>
+        <p class="text-slate-600 leading-relaxed mb-8">
+          Une question sur un produit, un prix ou une livraison ?
+          Contactez-nous directement. Nous vous répondrons dans les meilleurs délais.
+        </p>
+
+        <div class="space-y-4">
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 flex items-start gap-4">
+            <div class="text-2xl">📧</div>
+            <div>
+              <p class="font-bold text-slate-900">Email</p>
+              <a href="mailto:essodekekpobie1@gmail.com" class="text-blue-600 hover:underline">essodekekpobie1@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 flex items-start gap-4">
+            <div class="text-2xl">📱</div>
+            <div>
+              <p class="font-bold text-slate-900">WhatsApp</p>
+              <a href="https://wa.me/22870129271" target="_blank" class="text-blue-600 hover:underline">+228 70 12 92 71</a>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 flex items-start gap-4">
+            <div class="text-2xl">📍</div>
+            <div>
+              <p class="font-bold text-slate-900">Position</p>
+              <p class="text-slate-600">Lomé, Togo</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 reveal">
+        <h4 class="text-2xl font-bold text-slate-900 mb-6">Envoyer un message</h4>
+
+        <form id="contactForm" class="space-y-5" novalidate>
+          <div class="grid md:grid-cols-2 gap-5">
+            <div>
+              <label for="name" class="block text-sm font-semibold text-slate-700 mb-2">Nom complet</label>
+              <input
+                id="name"
+                type="text"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Votre nom"
+              />
+              <p class="text-red-500 text-sm mt-1 hidden" id="nameError"></p>
+            </div>
+
+            <div>
+              <label for="email" class="block text-sm font-semibold text-slate-700 mb-2">Adresse email</label>
+              <input
+                id="email"
+                type="email"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="votre@email.com"
+              />
+              <p class="text-red-500 text-sm mt-1 hidden" id="emailError"></p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-5">
+            <div>
+              <label for="phone" class="block text-sm font-semibold text-slate-700 mb-2">Téléphone</label>
+              <input
+                id="phone"
+                type="text"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="+228 ..."
+              />
+            </div>
+
+            <div>
+              <label for="subject" class="block text-sm font-semibold text-slate-700 mb-2">Sujet</label>
+              <input
+                id="subject"
+                type="text"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Ex : Demande d'information"
+              />
+              <p class="text-red-500 text-sm mt-1 hidden" id="subjectError"></p>
+            </div>
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm font-semibold text-slate-700 mb-2">Message</label>
+            <textarea
+              id="message"
+              rows="5"
+              class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Écrivez votre message..."
+            ></textarea>
+            <p class="text-red-500 text-sm mt-1 hidden" id="messageError"></p>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button
+              type="submit"
+              class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition"
+            >
+              Envoyer le message
+            </button>
+
+            <a
+              href="https://wa.me/22870129271"
+              target="_blank"
+              class="border border-slate-300 text-slate-700 px-6 py-3 rounded-xl font-bold hover:bg-slate-100 transition text-center"
+            >
+              Écrire sur WhatsApp
+            </a>
+          </div>
+
+          <div id="formSuccess" class="hidden rounded-2xl bg-green-50 border border-green-200 text-green-700 px-4 py-3 text-sm font-medium">
+            Votre message est prêt. Votre application email va s’ouvrir.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="px-4 sm:px-6 pb-20">
+    <div class="max-w-7xl mx-auto bg-gradient-to-r from-blue-600 to-slate-900 text-white rounded-[2rem] p-10 md:p-14 shadow-2xl reveal">
+      <div class="max-w-3xl">
+        <span class="text-sm uppercase tracking-widest text-blue-100 font-semibold">Faites le choix de la qualité</span>
+        <h3 class="text-3xl md:text-5xl font-extrabold mt-4 mb-5">
+          Commandez dès aujourd’hui en toute confiance
+        </h3>
+        <p class="text-blue-100 text-lg leading-relaxed mb-8">
+          Rejoignez une clientèle exigeante à la recherche de produits fiables,
+          d’un service sérieux et d’une expérience d’achat simple, rapide et sécurisée.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a
+            href="#produits"
+            class="bg-white text-slate-900 px-7 py-3 rounded-xl font-bold hover:bg-slate-200 transition text-center"
+          >
+            Voir nos produits
+          </a>
+
+          <a
+            href="https://wa.me/22870129271"
+            target="_blank"
+            class="border border-white/30 px-7 py-3 rounded-xl font-bold hover:bg-white/10 transition text-center pulse-soft"
+          >
+            Commander sur WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div>
+        <h3 class="text-2xl font-extrabold mb-4">
+          LGE <span class="text-blue-400">STORE</span>
+        </h3>
+        <p class="text-slate-400 leading-relaxed">
+          Votre boutique en ligne de confiance pour des achats simples, sécurisés et adaptés à vos besoins.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-lg mb-4">Navigation</h4>
+        <ul class="space-y-3 text-slate-400">
+          <li><a href="#accueil" class="hover:text-white transition">Accueil</a></li>
+          <li><a href="#avantages" class="hover:text-white transition">Nos engagements</a></li>
+          <li><a href="#produits" class="hover:text-white transition">Nos produits</a></li>
+          <li><a href="#faq" class="hover:text-white transition">FAQ</a></li>
+          <li><a href="#contact" class="hover:text-white transition">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-lg mb-4">Contact</h4>
+        <ul class="space-y-3 text-slate-400">
+          <li>📧 essodekekpobie1@gmail.com</li>
+          <li>📞 +228 70129271/ 96062988</li>
+          <li>📍 Lomé, Togo</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-lg mb-4">Paiements</h4>
+        <div class="flex flex-wrap gap-2">
+          <span class="bg-white/10 border border-white/10 px-3 py-2 rounded-xl text-sm">Visa</span>
+          <span class="bg-white/10 border border-white/10 px-3 py-2 rounded-xl text-sm">Flooz</span>
+          <span class="bg-white/10 border border-white/10 px-3 py-2 rounded-xl text-sm">TMoney</span>
+          <span class="bg-white/10 border border-white/10 px-3 py-2 rounded-xl text-sm">PayPal</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex flex-col md:flex-row justify-between gap-3 text-sm text-slate-500">
+        <p>© 2026 LGE STORE. Tous droits réservés.</p>
+        <p>Qualité • Fiabilité • Service professionnel</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING BUTTONS -->
+  <div class="fixed bottom-5 right-5 z-50 flex flex-col gap-3">
+    <button
+      id="floatingCartBtn"
+      class="relative bg-slate-900 text-white h-14 w-14 rounded-full shadow-xl hover:bg-blue-600 transition"
+      aria-label="Ouvrir le panier"
+    >
+      🛒
+      <span
+        id="floating-cart-count"
+        class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full h-5 w-5 flex items-center justify-center font-bold"
+      >0</span>
+    </button>
+
+    <a
+      href="https://wa.me/22870129271"
+      target="_blank"
+      class="bg-green-500 text-white h-14 w-14 rounded-full shadow-xl hover:bg-green-600 transition flex items-center justify-center text-2xl"
+      aria-label="Commander sur WhatsApp"
+    >
+      💬
+    </a>
+  </div>
+
+  <!-- PANIER -->
+  <aside
+    id="cartDrawer"
+    class="cart-drawer fixed top-0 right-0 h-full w-full sm:w-[420px] bg-white z-50 shadow-2xl border-l border-slate-200 flex flex-col"
+    aria-label="Panier"
+  >
+    <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200">
+      <div>
+        <h3 class="text-xl font-extrabold text-slate-900">Votre panier</h3>
+        <p class="text-sm text-slate-500">Vérifiez vos produits avant la commande</p>
+      </div>
+      <button
+        id="closeCartBtn"
+        class="h-10 w-10 rounded-full bg-slate-100 hover:bg-slate-200 transition"
+        aria-label="Fermer le panier"
+      >
+        ✕
+      </button>
+    </div>
+
+    <div id="cartItems" class="flex-1 overflow-y-auto p-5 space-y-4">
+      <div class="text-slate-500 text-sm">Votre panier est vide.</div>
+    </div>
+
+    <div class="border-t border-slate-200 p-5 space-y-4">
+      <div class="flex items-center justify-between">
+        <span class="text-slate-600 font-medium">Total</span>
+        <span id="cartTotal" class="text-2xl font-extrabold text-slate-900">0 FCFA</span>
+      </div>
+
+      <button
+        id="checkoutWhatsAppBtn"
+        class="w-full bg-green-500 text-white px-5 py-3 rounded-xl font-bold hover:bg-green-600 transition"
+      >
+        Commander via WhatsApp
+      </button>
+
+      <button
+        id="clearCartBtn"
+        class="w-full border border-slate-300 text-slate-700 px-5 py-3 rounded-xl font-bold hover:bg-slate-100 transition"
+      >
+        Vider le panier
+      </button>
+    </div>
+  </aside>
+
+  <script>
+    const WHATSAPP_NUMBER = "22870129271";
+    const CONTACT_EMAIL = "essodekekpobie1@gmail.com";
+
+    const products = [
+      {
+        id: 1,
+        name: "Routeur WiFi de poche portable 4G 5G A8 LTE extérieur avec fonction pare-feu de données LAN 300 Mbps max et emplacement pour carte SIM",
+        price: 12000,
+        category: "Electronique",
+        badge: "Best-seller",
+        image: "W3.png",
+        description: "Restez Connecté Partout avec le WiFi Mobile 4G/5G de LGE STORE ! Vous en avez marre des connexions instables en déplacement ? LGE STORE vous présente la solution ultime pour une liberté numérique totale : notre nouveau Routeur WiFi Portable ultra-performant.",
+        rating: 4.8
+      },
+      {
+        id: 2,
+        name: "Déodorant anti-transpirant rafraîchissant biologique pour hommes, doux et non collant, sans aluminium, entièrement naturel, avec un parfum frais",
+        price: 1000,
+        category: "Soins Corporel",
+        badge: "Nouveau",
+        image: "D1.png",
+        description: "Marre de la chaleur et des mauvaises odeurs ? Découvrez la puissance de la gamme SUAZAN MEN, le déodorant conçu pour l'homme moderne qui ne s'arrête jamais.",
+        rating: 4.7
+      },
+      {
+        id: 3,
+        name: "Ensemble de casseroles de cuisine en acier inoxydable de 10 pièces de haute qualité avec couvercles en verre",
+        price: 12000,
+        category: "Cuisine",
+        badge: "Top qualité",
+        image: "C1.png",
+        description: "Sublimez votre cuisine avec le Set de 5 Marmites en Inox ! Vous rêvez d'une cuisine organisée et de plats réussis à tous les coups ? Découvrez notre ensemble de 10 pièces (5 marmites + 5 couvercles) en acier inoxydable de haute qualité, alliant élégance et performance.",
+        rating: 4.9
+      },
+      {
+        id: 4,
+        name: "Projecteur Solaire de Jardin Extérieur Haute Qualité Étanche IP67 LED Solaire 100W 200W 300W 400W",
+        price: 6000,
+        category: "Solaire",
+        badge: "Pro",
+        image: "L1.png",
+        description: "Optimisez votre éclairage extérieur sans dépenser un seul franc en électricité ! Nos projecteurs solaires de qualité industrielle sont conçus pour offrir une puissance maximale et une durabilité exceptionnelle face aux intempéries.",
+        rating: 4.8
+      },
+      {
+        id: 5,
+        name: "Accessoires de Cuisine en Gros d'Usine 14-en-1 Coupe-Aliments Légumes Oignon Hachoir Mandoline Trancheuse Multifonctionnelle",
+        price: 6500,
+        category: "Cuisine",
+        badge: "Pratique",
+        image: "C2.png",
+        description: "Ce coupe-légumes multifonction est l'accessoire indispensable pour optimiser la préparation de vos repas. Conçu pour allier rapidité, précision et sécurité, il transforme la corvée de découpe en une tâche simple et organisée.",
+        rating: 4.9
+      },
+      {
+        id: 6,
+        name: "Poêle à frire électrique anti-adhésive w, poêle avec couvercle en verre pour la cuisson, facile à nettoyer, ustensile de cuisine",
+        price: 10000,
+        category: "Cuisine",
+        badge: "Confort",
+        image: "C3.png",
+        description: "Vous cherchez une solution de cuisine polyvalente, rapide et pratique ? Découvrez notre nouvelle Poêle Électrique Multifonction, l'alliée indispensable de votre cuisine et de vos déplacements.",
+        rating: 4.5
+      },
+
+            {
+        id: 7,
+        name: "Formation sur Alibaba",
+        price: 10000,
+        category: "formation",
+        badge: "Pro",
+        image: "A1.png",
+        description: "Vous avez toujours rêvé de lancer votre propre business en ligne mais vous ne savez pas par où commencer ? Vous voulez apprendre à commander directement sur Alibaba en toute sécurité et sans intermédiaire ? Cette formation complète est faite pour vous ! Chez LGE STORE, nous avons conçu un programme pratique pour vous transformer en expert de l'importation.",
+        rating: 4.5
+      },
+
+           {
+        id: 8,
+        name: "500 IDEES DE BUSINESS POUR ENTREPRENDRE ",
+        price: 5000,
+        category: "FORMATION",
+        badge: "Pro",
+        image: "P1.png",
+        description: "Ce document, intitulé « 500 Idées pour se remuer les méninges », est un guide pratique de 194 pages conçu pour accompagner les futurs entrepreneurs dans la recherche et la validation de leur projet de business.",
+        rating: 4.5
+      },
+
+              {
+        id: 9,
+        name: " Travaux de Géométrie ou Topographie ",
+        price: 0,
+        category: "Formation",
+        badge: "Pro",
+        image: "F1.png",
+        description: "Besoin d'une expertise précise pour vos projets immobiliers ou de construction au Togo ? Vous êtes au bon endroit. Je suis KPOBIE Essodéké, géomètre-topographe basé à Lomé. Ma mission est de vous accompagner dans la sécurisation et la mise en valeur de votre patrimoine foncier grâce à des mesures de haute précision.",
+        rating: 4.5
+      }
+
+      
+    ];
+
+    const state = {
+      cart: JSON.parse(localStorage.getItem("lge_cart") || "[]"),
+      filter: "Tous",
+      query: ""
+    };
+
+    const productsGrid = document.getElementById("productsGrid");
+    const cartItems = document.getElementById("cartItems");
+    const cartTotal = document.getElementById("cartTotal");
+    const cartCount = document.getElementById("cart-count");
+    const cartCountMobile = document.getElementById("cart-count-mobile");
+    const floatingCartCount = document.getElementById("floating-cart-count");
+    const cartDrawer = document.getElementById("cartDrawer");
+    const overlay = document.getElementById("overlay");
+    const searchInput = document.getElementById("searchInput");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+
+    function formatPrice(value) {
+      return new Intl.NumberFormat("fr-FR").format(value) + " FCFA";
+    }
+
+    function saveCart() {
+      localStorage.setItem("lge_cart", JSON.stringify(state.cart));
+    }
+
+    function getCartCount() {
+      return state.cart.reduce((sum, item) => sum + item.quantity, 0);
+    }
+
+    function getCartTotal() {
+      return state.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    }
+
+    function animateBadge(el) {
+      el.classList.remove("badge-bounce");
+      void el.offsetWidth;
+      el.classList.add("badge-bounce");
+    }
+
+    function renderProducts() {
+      let filtered = [...products];
+
+      if (state.filter !== "Tous") {
+        filtered = filtered.filter(p => p.category === state.filter);
+      }
+
+      if (state.query.trim()) {
+        const q = state.query.trim().toLowerCase();
+        filtered = filtered.filter(p =>
+          p.name.toLowerCase().includes(q) ||
+          p.description.toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q)
+        );
+      }
+
+      if (!filtered.length) {
+        productsGrid.innerHTML = `
+          <div class="col-span-full bg-white border border-slate-200 rounded-3xl p-8 text-center text-slate-500">
+            Aucun produit ne correspond à votre recherche.
+          </div>
+        `;
+        return;
+      }
+
+      productsGrid.innerHTML = filtered.map(product => `
+        <article class="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition reveal">
+          <div class="h-56 bg-gradient-to-br from-blue-50 via-white to-slate-100 flex items-center justify-center relative">
+            <span class="absolute top-4 left-4 bg-slate-900 text-white text-xs px-3 py-1 rounded-full font-semibold">
+              ${product.badge}
+            </span>
+            <img src="${product.image}" alt="${product.name}">
+          </div>
+
+          <div class="p-6">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-xs uppercase tracking-wider text-blue-600 font-semibold mb-2">${product.category}</p>
+                <h4 class="font-bold text-xl text-slate-900">${product.name}</h4>
+              </div>
+              <div class="text-sm font-semibold text-amber-500">★ ${product.rating}</div>
+            </div>
+
+            <p class="text-slate-600 text-sm mt-3 leading-relaxed">${product.description}</p>
+
+            <div class="mt-5 flex items-center justify-between">
+              <span class="text-2xl font-extrabold text-blue-600">${formatPrice(product.price)}</span>
+            </div>
+
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <button
+                onclick="addToCart(${product.id})"
+                class="bg-slate-900 text-white px-4 py-3 rounded-xl text-sm font-bold hover:bg-blue-600 transition"
+              >
+                Ajouter au panier
+              </button>
+              <button
+                onclick="buyNow(${product.id})"
+                class="border border-green-500 text-green-600 px-4 py-3 rounded-xl text-sm font-bold hover:bg-green-50 transition"
+              >
+                Commander
+              </button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+
+      observeReveal();
+    }
+
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      const existing = state.cart.find(item => item.id === productId);
+
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        state.cart.push({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          quantity: 1
+        });
+      }
+
+      saveCart();
+      renderCart();
+      openCart();
+
+      animateBadge(cartCount);
+      animateBadge(cartCountMobile);
+      animateBadge(floatingCartCount);
+    }
+
+    function changeQty(productId, delta) {
+      const item = state.cart.find(i => i.id === productId);
+      if (!item) return;
+
+      item.quantity += delta;
+
+      if (item.quantity <= 0) {
+        state.cart = state.cart.filter(i => i.id !== productId);
+      }
+
+      saveCart();
+      renderCart();
+    }
+
+    function removeFromCart(productId) {
+      state.cart = state.cart.filter(i => i.id !== productId);
+      saveCart();
+      renderCart();
+    }
+
+    function clearCart() {
+      state.cart = [];
+      saveCart();
+      renderCart();
+    }
+
+    function renderCart() {
+      const count = getCartCount();
+      const total = getCartTotal();
+
+      cartCount.textContent = count;
+      cartCountMobile.textContent = count;
+      floatingCartCount.textContent = count;
+      cartTotal.textContent = formatPrice(total);
+
+      if (!state.cart.length) {
+        cartItems.innerHTML = `<div class="text-slate-500 text-sm">Votre panier est vide.</div>`;
+        return;
+      }
+
+      cartItems.innerHTML = state.cart.map(item => `
+        <div class="border border-slate-200 rounded-2xl p-4">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h4 class="font-bold text-slate-900">${item.name}</h4>
+              <p class="text-sm text-slate-500 mt-1">${formatPrice(item.price)} / unité</p>
+            </div>
+            <button
+              onclick="removeFromCart(${item.id})"
+              class="text-red-500 text-sm font-semibold hover:underline"
+            >
+              Supprimer
+            </button>
+          </div>
+
+          <div class="mt-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <button
+                onclick="changeQty(${item.id}, -1)"
+                class="h-9 w-9 rounded-lg bg-slate-100 hover:bg-slate-200 transition"
+              >−</button>
+              <span class="min-w-[30px] text-center font-bold">${item.quantity}</span>
+              <button
+                onclick="changeQty(${item.id}, 1)"
+                class="h-9 w-9 rounded-lg bg-slate-100 hover:bg-slate-200 transition"
+              >+</button>
+            </div>
+
+            <div class="text-right">
+              <p class="text-sm text-slate-500">Sous-total</p>
+              <p class="font-extrabold text-slate-900">${formatPrice(item.price * item.quantity)}</p>
+            </div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function buildWhatsAppCartMessage() {
+      if (!state.cart.length) return "";
+
+      const lines = state.cart.map(item => {
+        return `- ${item.name} x${item.quantity} : ${formatPrice(item.price * item.quantity)}`;
+      }).join("\n");
+
+      return `Bonjour LGE STORE,%0A%0AJe souhaite commander les produits suivants :%0A${encodeURIComponent(lines).replace(/%0A/g, "\n")}`;
+    }
+
+    function checkoutWhatsApp() {
+      if (!state.cart.length) {
+        alert("Votre panier est vide.");
+        return;
+      }
+
+      const lines = state.cart.map(item =>
+        `- ${item.name} x${item.quantity} : ${formatPrice(item.price * item.quantity)}`
+      ).join("\n");
+
+      const message =
+`Bonjour LGE STORE,
+
+Je souhaite commander les produits suivants :
+${lines}
+
+Total : ${formatPrice(getCartTotal())}
+
+Nom :
+Téléphone :
+Adresse/Lieu de livraison :
+
+Merci.`;
+
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank");
+    }
+
+    function buyNow(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      const message =
+`Bonjour LGE STORE,
+
+Je souhaite commander ce produit :
+- ${product.name}
+- Prix : ${formatPrice(product.price)}
+
+Nom :
+Téléphone :
+Adresse/Lieu de livraison :
+
+Merci.`;
+
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank");
+    }
+
+    function openCart() {
+      cartDrawer.classList.add("open");
+      overlay.classList.add("show");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeCart() {
+      cartDrawer.classList.remove("open");
+      overlay.classList.remove("show");
+      document.body.style.overflow = "";
+    }
+
+    document.getElementById("openCartBtn").addEventListener("click", openCart);
+    document.getElementById("floatingCartBtn").addEventListener("click", openCart);
+    document.getElementById("openCartBtnMobile").addEventListener("click", openCart);
+    document.getElementById("closeCartBtn").addEventListener("click", closeCart);
+    document.getElementById("checkoutWhatsAppBtn").addEventListener("click", checkoutWhatsApp);
+    document.getElementById("clearCartBtn").addEventListener("click", clearCart);
+    overlay.addEventListener("click", closeCart);
+
+    searchInput.addEventListener("input", (e) => {
+      state.query = e.target.value;
+      renderProducts();
+    });
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        state.filter = btn.dataset.filter;
+
+        filterButtons.forEach(b => {
+          b.classList.remove("bg-slate-900", "text-white");
+          b.classList.add("bg-white", "border", "border-slate-300");
+        });
+
+        btn.classList.remove("bg-white", "border", "border-slate-300");
+        btn.classList.add("bg-slate-900", "text-white");
+
+        renderProducts();
+      });
+    });
+
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    mobileMenuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    function setError(id, message) {
+      const el = document.getElementById(id);
+      el.textContent = message;
+      el.classList.remove("hidden");
+    }
+
+    function clearError(id) {
+      const el = document.getElementById(id);
+      el.textContent = "";
+      el.classList.add("hidden");
+    }
+
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const subject = document.getElementById("subject").value.trim();
+      const message = document.getElementById("message").value.trim();
+      const formSuccess = document.getElementById("formSuccess");
+
+      let valid = true;
+
+      clearError("nameError");
+      clearError("emailError");
+      clearError("subjectError");
+      clearError("messageError");
+      formSuccess.classList.add("hidden");
+
+      if (!name) {
+        setError("nameError", "Veuillez entrer votre nom.");
+        valid = false;
+      }
+
+      if (!email) {
+        setError("emailError", "Veuillez entrer votre adresse email.");
+        valid = false;
+      } else if (!validateEmail(email)) {
+        setError("emailError", "Veuillez entrer une adresse email valide.");
+        valid = false;
+      }
+
+      if (!subject) {
+        setError("subjectError", "Veuillez entrer un sujet.");
+        valid = false;
+      }
+
+      if (!message) {
+        setError("messageError", "Veuillez écrire votre message.");
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      const body =
+`Nom : ${name}
+Email : ${email}
+Téléphone : ${phone}
+Sujet : ${subject}
+
+Message :
+${message}`;
+
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      formSuccess.classList.remove("hidden");
+      this.reset();
+    });
+
+    function observeReveal() {
+      const reveals = document.querySelectorAll(".reveal");
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, { threshold: 0.12 });
+
+      reveals.forEach(el => observer.observe(el));
+    }
+
+    renderProducts();
+    renderCart();
+    observeReveal();
+  </script>
+</body>
+</html>
