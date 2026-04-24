@@ -74,6 +74,18 @@
       40% { transform: scale(1.25); }
       100% { transform: scale(1); }
     }
+
+ /* STYLES DU DIAPORAMA */
+    .slider-container { position: relative; width: 100%; overflow: hidden; border-radius: 1rem; }
+    .slider-wrapper { display: flex; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    .slide { min-width: 100%; box-sizing: border-box; }
+    .dot-container { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem; }
+    .dot { height: 8px; width: 8px; background-color: #cbd5e1; border-radius: 50%; cursor: pointer; transition: all 0.3s ease; }
+    .dot.active { background-color: #2563eb; width: 20px; border-radius: 10px; }
+
+    .pulse-soft { animation: pulseSoft 2s infinite; }
+    @keyframes pulseSoft { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -278,6 +290,72 @@
     </div>
   </section>
 
+    <section>
+          <div class="reveal visible">
+        <div class="glass border border-white/10 rounded-3xl p-4 md:p-6 shadow-2xl">
+          <div class="bg-white rounded-2xl p-5 text-slate-900">
+            <p class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-4">À la une chez LGE STORE</p>
+            
+            <div class="slider-container">
+              <div class="slider-wrapper" id="heroSlider">
+                
+                <div class="slide">
+                  <div class="text-center">
+                    <img src="W3.png" alt="Routeur" class="h-48 w-full object-contain mb-4">
+                    <h4 class="font-bold text-lg">Routeur WiFi 4G/5G</h4>
+                    <p class="text-blue-600 font-extrabold">15 000 FCFA</p>
+                  </div>
+                </div>
+
+                <div class="slide">
+                  <div class="text-center">
+                    <img src="D1.png" alt="Déodorant" class="h-48 w-full object-contain mb-4">
+                    <h4 class="font-bold text-lg">Déodorant Bio Naturel</h4>
+                    <p class="text-blue-600 font-extrabold">1 000 FCFA</p>
+                  </div>
+                </div>
+
+                <div class="slide">
+                  <div class="text-center">
+                    <img src="F1.png" alt="Formation" class="h-48 w-full object-contain mb-4">
+                    <h4 class="font-bold text-lg">Formation Alibaba</h4>
+                    <p class="text-blue-600 font-extrabold">10 000 FCFA</p>
+                  </div>
+                </div>
+
+                  <div class="slide">
+                  <div class="text-center">
+                    <img src="F1.png" alt="Topographie" class="h-48 w-full object-contain mb-4">
+                    <h4 class="font-bold text-lg">Travaux de Topographie Géometrie</h4>
+                    <p class="text-blue-600 font-extrabold">1FCFA</p>
+                  </div>
+                </div>
+
+                  <div class="slide">
+                  <div class="text-center">
+                    <img src="P1.png" alt="Formation" class="h-48 w-full object-contain mb-4">
+                    <h4 class="font-bold text-lg"> + 500 Idée bizness</h4>
+                    <p class="text-blue-600 font-extrabold">1 FCFA</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="dot-container" id="dotContainer"></div>
+            
+            <a href="https://wa.me/22870129271" class="block w-full mt-6 bg-blue-600 text-white text-center py-3 rounded-xl font-bold hover:bg-blue-700 transition">
+              Commander maintenant
+            </a>
+          </div>
+        </div>
+      </div>
+
+  </section>
+
+
+
+
   <!-- AVANTAGES -->
   <section id="avantages" class="max-w-7xl mx-auto px-4 sm:px-6 py-20">
     <div class="text-center mb-14 reveal">
@@ -339,9 +417,14 @@
           />
           <div class="flex flex-wrap gap-2" id="filterButtons">
             <button class="filter-btn bg-slate-900 text-white px-4 py-3 rounded-xl text-sm font-semibold" data-filter="Tous">Tous</button>
-            <button class="filter-btn bg-white border border-slate-300 px-4 py-3 rounded-xl text-sm font-semibold" data-filter="Téléphonie">Téléphonie</button>
-            <button class="filter-btn bg-white border border-slate-300 px-4 py-3 rounded-xl text-sm font-semibold" data-filter="Accessoires">Accessoires</button>
-            <button class="filter-btn bg-white border border-slate-300 px-4 py-3 rounded-xl text-sm font-semibold" data-filter="Informatique">Informatique</button>
+            <button class="filter-btn bg-white border border-slate-300 px-4 py-3 rounded-xl text-sm font-semibold" data-filter="Soins Corporel">Soins Corporel</button>
+            <button class="filter-btn bg-white border border-slate-300 px-4 py-3 rounded-xl text-sm font-semibold" data-filter="Cuisine">Cuisine</button>
+            <button class="filter-btn bg-white border border-slate-300 px-4 py-3 rounded-xl text-sm font-semibold" data-filter="Electronique">Electronique</button>
+            <button class="filter-btn bg-white border border-slate-300 px-4 py-3 rounded-xl text-sm font-semibold" data-filter="Solaire">Solaire</button>
+            <button class="filter-btn bg-white border border-slate-300 px-4 py-3 rounded-xl text-sm font-semibold" data-filter="Topographie">Topographie</button>
+            <button class="filter-btn bg-white border border-slate-300 px-4 py-3 rounded-xl text-sm font-semibold" data-filter="Formation">Formation</button>
+
+
           </div>
         </div>
       </div>
@@ -727,6 +810,50 @@
     const WHATSAPP_NUMBER = "22870129271";
     const CONTACT_EMAIL = "essodekekpobie1@gmail.com";
 
+     // LOGIQUE DU DIAPORAMA
+    const slider = document.getElementById('heroSlider');
+    const dotContainer = document.getElementById('dotContainer');
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    // Création des points (dots)
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goToSlide(i));
+      dotContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.dot');
+
+    function goToSlide(index) {
+      currentSlide = index;
+      slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[currentSlide].classList.add('active');
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      goToSlide(currentSlide);
+    }
+
+    // Changement automatique toutes les 4 secondes
+    setInterval(nextSlide, 4000);
+
+    // Animation d'apparition au scroll (reveal)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+
+
+
     const products = [
       {
         id: 1,
@@ -793,7 +920,7 @@
         id: 7,
         name: "Formation sur Alibaba",
         price: 10000,
-        category: "formation",
+        category: "Formation",
         badge: "Pro",
         image: "A1.png",
         description: "Vous avez toujours rêvé de lancer votre propre business en ligne mais vous ne savez pas par où commencer ? Vous voulez apprendre à commander directement sur Alibaba en toute sécurité et sans intermédiaire ? Cette formation complète est faite pour vous ! Chez LGE STORE, nous avons conçu un programme pratique pour vous transformer en expert de l'importation.",
@@ -804,7 +931,7 @@
         id: 8,
         name: "500 IDEES DE BUSINESS POUR ENTREPRENDRE ",
         price: 5000,
-        category: "FORMATION",
+        category: "Formation",
         badge: "Pro",
         image: "P1.png",
         description: "Ce document, intitulé « 500 Idées pour se remuer les méninges », est un guide pratique de 194 pages conçu pour accompagner les futurs entrepreneurs dans la recherche et la validation de leur projet de business.",
@@ -815,7 +942,7 @@
         id: 9,
         name: " Travaux de Géométrie ou Topographie ",
         price: 0,
-        category: "Formation",
+        category: "Topographie",
         badge: "Pro",
         image: "F1.png",
         description: "Besoin d'une expertise précise pour vos projets immobiliers ou de construction au Togo ? Vous êtes au bon endroit. Je suis KPOBIE Essodéké, géomètre-topographe basé à Lomé. Ma mission est de vous accompagner dans la sécurisation et la mise en valeur de votre patrimoine foncier grâce à des mesures de haute précision.",
